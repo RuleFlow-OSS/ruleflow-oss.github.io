@@ -6,21 +6,68 @@
     .scrolly-wrapper {
         position: relative;
         width: 100%;
-        max-width: 1200px;
+        max-width: 1400px;
+        /* Widened to allow much larger GIF displays */
         margin: 0 auto;
         padding: 0 2rem 10vh 2rem;
+        box-sizing: border-box;
+    }
+
+    /* --- SUBTLE BACKGROUND GRID --- */
+    .scrolly-wrapper::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 0;
+        /* Keeps it behind the content */
+
+        /* Neutral semi-transparent grid lines (works on light & dark) */
+        background-size: 50px 50px;
+        background-image:
+            linear-gradient(to right, rgba(128, 128, 128, 0.08) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(128, 128, 128, 0.08) 1px, transparent 1px);
+
+        /* Smoothly fades the grid out at the top and bottom boundaries */
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+    }
+
+    /* --- GLOWING MOUSE GRID --- */
+    .scrolly-wrapper::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 0;
+
+        /* Blue grid lines (matching your #0ea5e9 link color) */
+        background-size: 50px 50px;
+        background-image:
+            linear-gradient(to right, rgba(14, 165, 233, 0.4) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(14, 165, 233, 0.4) 1px, transparent 1px);
+
+        /* A radial mask that centers on our CSS variables, fading out at 250px */
+        -webkit-mask-image: radial-gradient(circle 250px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black, transparent);
+        mask-image: radial-gradient(circle 250px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black, transparent);
     }
 
     /* --- STICKY VISUAL STAGE --- */
     .visual-stage {
         position: sticky;
-        /* max() ensures it never clips off the top on very short screens */
-        top: max(15vh, 100px);
-        height: 70vh;
-        min-height: 400px;
+        /* Push slightly down from header */
+        top: max(10vh, 90px);
+        height: 80vh;
+        /* Taller stage for maximum visibility */
+        min-height: 500px;
         width: 100%;
         pointer-events: none;
-        /* Allows clicking text/links behind it */
         z-index: 1;
     }
 
@@ -29,56 +76,51 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 50%;
+        width: 70%;
         height: 100%;
-        /* Smooth Apple-like glide when changing sides */
         transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    /* Alignment Classes (Controlled by JS) */
+    /* Image on Right (Spills off the right side) */
     .scrolly-wrapper.visual-right .mockup-container {
-        transform: translateX(100%);
-        /* Moves to the right half */
+        /* Important Math: We need it to start exactly at 40% to clear the text. 40 / width-of-mockup = 0.5333 */
+        transform: translateX(57.1%);
     }
 
+    /* Image on Left (Spills off the left side) */
     .scrolly-wrapper.visual-left .mockup-container {
-        transform: translateX(0%);
-        /* Moves to the left half */
+        /* Important Math: We need it to end exactly at 60% to clear the text. -15 / width-of-mockup = -0.2 */
+        transform: translateX(-21%);
     }
 
     /* --- FLEXIBLE MEDIA PLACEHOLDERS --- */
     .mockup-placeholder {
         position: absolute;
-        width: 90%;
-        aspect-ratio: 16 / 10;
-        border-radius: 12px;
+        width: 100%;
+        height: 100%;
         opacity: 0;
         visibility: hidden;
         transform: translateY(20px) scale(0.95);
         transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s;
-
-        /* Temporary styling until you add videos */
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: monospace;
-        color: #64748b;
-        font-size: 1.25rem;
     }
 
-    /* Makes any video/image added later fit perfectly */
+    /* Make sure videos and images never crop their UI/Text */
     .mockup-placeholder video,
     .mockup-placeholder img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: inherit;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        /* CRUCIAL: Ensures full uncropped GIF is visible */
+        border-radius: 12px;
+        /* Apple-style deep layered floating shadow */
+        box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.08);
     }
 
     .mockup-placeholder.active {
@@ -93,17 +135,21 @@
         z-index: 2;
         pointer-events: auto;
         /* Pulls the text up so it aligns with the sticky stage */
-        margin-top: -70vh;
+        margin-top: -80vh;
     }
 
     .step {
-        min-height: 80vh;
-        width: 50%;
+        min-height: 100vh;
+        /* Lengthened to give the user more scroll time per image */
+        width: 40%;
+        /* Reduced from 50% to make room for 60% images */
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 2rem;
-        opacity: 0.3;
+        padding: 1.5rem 3rem;
+        /* Tighter vertical padding */
+        box-sizing: border-box;
+        opacity: 0.2;
         transition: opacity 0.5s ease;
     }
 
@@ -111,51 +157,59 @@
         opacity: 1;
     }
 
-    /* Layout Logic based on data-visual-pos */
+    /* Text on Left (Image on Right) */
     .step[data-visual-pos="right"] {
         margin-left: 0;
     }
 
-    /* Text on Left */
+    /* Text on Right (Image on Left) */
     .step[data-visual-pos="left"] {
-        margin-left: 50%;
+        margin-left: 60%;
     }
 
-    /* Text on Right */
-
     .step h2 {
-        font-size: 2.75rem;
+        font-size: 2rem;
+        /* Reduced to save space */
         font-weight: 700;
+        letter-spacing: -0.02em;
         margin-top: 0;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
+        /* Tighter gap */
         color: var(--md-typeset-color, #0f172a);
         line-height: 1.2;
     }
 
     .step p {
-        font-size: 1.125rem;
-        line-height: 1.7;
+        font-size: 1rem;
+        /* Smaller text to ensure it fits next to the UI */
+        line-height: 1.5;
+        /* Tighter line height */
         margin: 0;
         color: var(--md-typeset-color, #475569);
     }
 
-    /* --- INSTALL BUTTON --- */
+    /* --- ACTIONS (INSTALL & LINKS) --- */
+    .action-group {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
     .install-btn {
         display: inline-flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
         background: #0f172a;
         color: #ffffff !important;
-        padding: 0.875rem 1.5rem;
+        padding: 0.75rem 1.25rem;
         border-radius: 8px;
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-weight: 600;
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         text-decoration: none;
-        margin-top: 2rem;
         transition: all 0.2s ease;
-        align-self: flex-start;
-        /* Keeps it from stretching */
     }
 
     .install-btn:hover {
@@ -164,38 +218,108 @@
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
-    /* --- MOBILE RESPONSIVENESS --- */
-    @media (max-width: 900px) {
+    .learn-more-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #0ea5e9;
+        /* Sleek Apple-like blue link */
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .learn-more-link svg {
+        transition: transform 0.2s ease;
+    }
+
+    .learn-more-link:hover {
+        color: #0284c7;
+    }
+
+    .learn-more-link:hover svg {
+        transform: translateX(4px);
+        /* Arrow slides right on hover */
+    }
+
+    /* Used for steps that don't have an install button to space the link properly */
+    .step>.learn-more-link {
+        margin-top: 1.25rem;
+        align-self: flex-start;
+    }
+
+    /* --- MOBILE RESPONSIVENESS (FROSTED CARD SCROLL) --- */
+    @media (max-width: 1024px) {
         .scrolly-wrapper {
-            padding: 0 1rem;
+            padding: 0;
         }
 
         .visual-stage {
             position: sticky;
-            top: 80px;
-            /* Sits just below the mobile header */
-            height: 35vh;
-            min-height: 250px;
-            margin-bottom: 2rem;
+            top: 10vh;
+            height: 45vh;
+            min-height: 300px;
+            margin-bottom: 0;
+            padding: 0 1rem;
+            box-sizing: border-box;
         }
 
-        /* Force visual to be full width and stay centered on mobile */
         .mockup-container {
             width: 100%;
             transform: translateX(0) !important;
         }
 
         .content-steps {
-            margin-top: 0;
+            margin-top: -20vh;
+            padding: 0 1rem;
         }
 
         .step {
             width: 100%;
             margin-left: 0 !important;
-            min-height: 50vh;
-            padding: 3rem 0;
+            min-height: auto;
+            padding: 2rem 1.5rem;
+            /* Tighter padding for mobile cards */
+            margin-bottom: 60vh;
+
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+
+            opacity: 0.3;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* Adjust dark mode card backgrounds if needed for mobile */
+        @media (prefers-color-scheme: dark) {
+            .step {
+                background: rgba(30, 41, 59, 0.85);
+                border-color: rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        .step.is-active {
             opacity: 1;
-            /* Keep text readable on mobile */
+            transform: translateY(0);
+        }
+
+        .step:last-child {
+            margin-bottom: 20vh;
+        }
+
+        .step h2 {
+            font-size: 1.5rem;
+            /* Smaller mobile header */
+        }
+
+        .step p {
+            font-size: 0.95rem;
+            /* Smaller mobile paragraph */
         }
     }
 </style>
@@ -208,32 +332,27 @@
 
             <!-- Placeholder 1 -->
             <div class="mockup-placeholder m1 active">
-                <!-- Replace this text with your video tag later:
-        <video autoplay muted loop playsinline>
-          <source src="assets/dsl-animation.mp4" type="video/mp4">
-        </video>
-        -->
-                <div>[ Flow DSL Syntax & Execution ]</div>
+                <img src="assets/first-example.gif" alt="demo">
             </div>
 
             <!-- Placeholder 2 -->
             <div class="mockup-placeholder m2">
-                <div>[ Interactive Terminal Studio UI ]</div>
+                <img src="assets/Interactive.gif" alt="demo">
             </div>
 
             <!-- Placeholder 3 -->
             <div class="mockup-placeholder m3">
-                <div>[ Causal Graph Visualization ]</div>
+                <img src="assets/graph.gif" alt="demo">
             </div>
 
             <!-- Placeholder 4 -->
             <div class="mockup-placeholder m4">
-                <div>[ Plugin Integration & Custom UI ]</div>
+                <img src="assets/plugin.gif" alt="demo">
             </div>
 
             <!-- Placeholder 5 -->
             <div class="mockup-placeholder m5">
-                <div>[ Python API & Extensibility ]</div>
+                <img src="assets/core-api.png" alt="demo">
             </div>
 
         </div>
@@ -242,42 +361,102 @@
     <!-- TEXT STEPS -->
     <div class="content-steps">
 
-        <!-- Step 1: Text on Left (Visual will be pushed Right) -->
+        <!-- Step 1 -->
         <section class="step is-active" data-step="1" data-visual-pos="right">
             <h2>Model Evolutions with Elegance</h2>
-            <p>RuleFlow provides a powerful Domain Specific Language (DSL) designed to effortlessly construct string-rewriting systems, 1D cellular automata, and complex multiway models. Define substitutions, shifts, and targeted overwrites with a syntax built for structural theorists.</p>
+            <p>RuleFlow provides a powerful Domain Specific Language (DSL) designed to effortlessly construct
+                string-rewriting systems, 1D cellular automata, and complex multiway models. Define substitutions,
+                shifts, and targeted overwrites with a syntax built for structural theorists.</p>
 
-            <a href="/get-started/install/" class="install-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="4 17 10 11 4 5"></polyline>
-                    <line x1="12" y1="19" x2="20" y2="19"></line>
+            <div class="action-group">
+                <a href="/get-started/install/" class="install-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="4 17 10 11 4 5"></polyline>
+                        <line x1="12" y1="19" x2="20" y2="19"></line>
+                    </svg>
+                    pip install ruleflow
+                </a>
+                <a href="/about/" class="learn-more-link">
+                    Learn more
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- Step 2 -->
+        <section class="step" data-step="2" data-visual-pos="left">
+            <h2>Interactive Terminal Studio</h2>
+            <p>Step through theoretical timelines using a distraction-free, highly optimized Textual UI. Hot-reload rule
+                modifications in real-time, inspect deeply nested space states, track specific cell lifespans, and
+                navigate causality with absolute precision directly from your terminal.</p>
+
+            <a href="/studio/overview/" class="learn-more-link">
+                Explore the Terminal UI
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
-                pip install ruleflow
             </a>
         </section>
 
-        <!-- Step 2: Text on Right (Visual will be pushed Left) -->
-        <section class="step" data-step="2" data-visual-pos="left">
-            <h2>Interactive Terminal Studio</h2>
-            <p>Step through theoretical timelines using a distraction-free, highly optimized Textual UI. Hot-reload rule modifications in real-time, inspect deeply nested space states, track specific cell lifespans, and navigate causality with absolute precision directly from your terminal.</p>
-        </section>
-
-        <!-- Step 3: Text on Left (Visual will be pushed Right) -->
+        <!-- Step 3 -->
         <section class="step" data-step="3" data-visual-pos="right">
             <h2>Deep Causal Analysis</h2>
-            <p>Extract profound topological insights from your models. RuleFlow automatically extracts Event Causality Graphs, calculates flow hierarchies, and computes degree assortativity. Export sparse models to Gephi or visualize complex graph intersections natively in your browser via VisJS.</p>
+            <p>Extract profound topological insights from your models. RuleFlow automatically extracts Event Causality
+                Graphs, calculates flow hierarchies, and computes degree assortativity. Export sparse models to Gephi or
+                visualize complex graph intersections natively in your browser via VisJS.</p>
+
+            <a href="/studio/features/analysis/" class="learn-more-link">
+                Learn about Causal Graphs
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
         </section>
 
-        <!-- Step 4: Text on Right (Visual will be pushed Left) -->
+        <!-- Step 4 -->
         <section class="step" data-step="4" data-visual-pos="left">
             <h2>Extend the Studio with Plugins</h2>
-            <p>RuleFlow's UI isn't just a viewer; it's a modular research environment. Write custom Python plugins to hook directly into the Model-View-Controller architecture. Add bespoke tabs, custom data tables, and specialized parameter controls to steer your unique exploration and analysis efforts without ever leaving the terminal.</p>
+            <p>RuleFlow's UI isn't just a viewer; it's a modular research environment. Write custom Python plugins to
+                hook directly into the Model-View-Controller architecture. Add bespoke tabs, custom data tables, and
+                specialized parameter controls to steer your unique exploration and analysis efforts without ever
+                leaving the terminal.</p>
+
+            <a href="/studio/plugins/store/" class="learn-more-link">
+                View the Plugin API
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
         </section>
 
-        <!-- Step 5: Text on Left (Visual will be pushed Right) -->
+        <!-- Step 5 -->
         <section class="step" data-step="5" data-visual-pos="right">
             <h2>Infinite Extensibility via Core API</h2>
-            <p>Beyond the built-in DSL, RuleFlow's core engine is completely exposed through a robust Python API. Extend the foundational <code>Cell</code>, <code>SpaceState</code>, and <code>Rule</code> classes to build ANY evolving system you can imagine—from 2D Conway's Game of Life and hypergraph rewriting systems to multidimensional simulations. If you can define the transformation rules programmatically, RuleFlow can simulate and analyze it.</p>
+            <p>Beyond the built-in DSL, RuleFlow's core engine is completely exposed through a robust Python API. Extend
+                the foundational <code>Cell</code>, <code>SpaceState</code>, and <code>Rule</code> classes to build ANY
+                evolving system you can imagine—from 2D Conway's Game of Life and hypergraph rewriting systems to
+                multidimensional simulations. If you can define the transformation rules programmatically, RuleFlow can
+                simulate and analyze it.</p>
+
+            <a href="/core/overview/" class="learn-more-link">
+                Browse the Core Engine Docs
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
         </section>
 
     </div>
@@ -292,6 +471,23 @@
         if (!steps.length || !mockups.length || !wrapper) return;
 
         let activeIndex = -1;
+
+        // --- NEW: Global state for the mouse ---
+        let clientX = -1000;
+        let clientY = -1000;
+        let isHovering = false;
+
+        // Helper function to update the glow based on the last known mouse position
+        function updateGlow() {
+            if (!isHovering) return;
+            const rect = wrapper.getBoundingClientRect();
+            // Calculate mouse position relative to the wrapper's current scrolled position
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+            
+            wrapper.style.setProperty('--mouse-x', `${x}px`);
+            wrapper.style.setProperty('--mouse-y', `${y}px`);
+        }
 
         function updateScrolly() {
             const centerY = window.innerHeight / 2;
@@ -345,13 +541,34 @@
         // Run once on load to ensure correct initial state
         updateScrolly();
 
-        // Attach to scroll and resize events via requestAnimationFrame for max performance
+        // --- MOUSE GLOW TRACKING ---
+        wrapper.addEventListener('mousemove', (e) => {
+            isHovering = true;
+            // Store the position relative to the viewport
+            clientX = e.clientX;
+            clientY = e.clientY;
+            updateGlow();
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            isHovering = false;
+            wrapper.style.setProperty('--mouse-x', `-1000px`);
+            wrapper.style.setProperty('--mouse-y', `-1000px`);
+        });
+
+        // --- SCROLL & RESIZE EVENTS ---
         window.addEventListener('scroll', () => {
-            window.requestAnimationFrame(updateScrolly);
+            window.requestAnimationFrame(() => {
+                updateScrolly();
+                updateGlow(); // Recalculate glow offset while scrolling
+            });
         }, { passive: true });
 
         window.addEventListener('resize', () => {
-            window.requestAnimationFrame(updateScrolly);
+            window.requestAnimationFrame(() => {
+                updateScrolly();
+                updateGlow(); 
+            });
         }, { passive: true });
 
     })();
