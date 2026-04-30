@@ -27,7 +27,7 @@ site_author = "Sessie Research Group"
 # The site_url is the canonical URL for your site. When building online
 # documentation you should set this.
 # Read more: https://zensical.org/docs/setup/basics/#site_url
-site_url = "https://ruleflow-oss.github.io/"
+site_url = "https://www.ruleflow.org/"
 # repo_url = "https://github.com/RuleFlow-OSS/RuleFlow"
 # repo_name = "RuleFlow-OSS/RuleFlow"
 
@@ -401,7 +401,7 @@ toggle.name = "Switch to light mode"
 # ----------------------------------------------------------------------------
 [[project.extra.social]]
 icon = "fontawesome/brands/github"
-link = "https://github.com/RuleFlow-OSS/RuleFlow"
+link = "https://github.com/RuleFlow-OSS/"
 
 # ----------------------------------------------------------------------------
 # In this section you can configure the Markdown extensions that are used when
