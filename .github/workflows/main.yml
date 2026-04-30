@@ -4,10 +4,16 @@ on:
     branches:
       - master
       - main
+
+# Forces all actions to run on Node 24 to clear the deprecation warning
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true 
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 jobs:
   deploy:
     environment:
@@ -15,15 +21,31 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/configure-pages@v5
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+        
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - run: pip install zensical
-      - run: zensical build --clean 
-      - uses: actions/upload-pages-artifact@v4
+          
+      - name: Install Zensical
+        run: pip install zensical
+        
+      - name: Build site
+        run: zensical build --clean 
+        
+      - name: Disable Jekyll processing
+        run: touch site/.nojekyll
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
         with:
           path: site
-      - uses: actions/deploy-pages@v4
+          
+      - name: Deploy to GitHub Pages
         id: deployment
+        uses: actions/deploy-pages@v4
