@@ -29,7 +29,7 @@ site_author = "Sessie Research Group"
 # Read more: https://zensical.org/docs/setup/basics/#site_url
 site_url = "https://ruleflow-oss.github.io/RuleFlow/"
 # repo_url = "https://github.com/RuleFlow-OSS/RuleFlow"
-# repo_name = "sessieresearchatsau/RuleFlow"
+# repo_name = "RuleFlow-OSS/RuleFlow"
 
 # The copyright notice appears in the page footer and can contain an HTML
 # fragment.
@@ -182,7 +182,7 @@ nav = [
 # Read more:
 # - https://zensical.org/docs/customization/#extending-the-theme
 #
-#custom_dir = "overrides"
+custom_dir = "overrides"
 
 # With the "favicon" option you can set your own image to use as the icon
 # browsers will use in the browser title bar or tab bar. The path provided
@@ -401,7 +401,7 @@ toggle.name = "Switch to light mode"
 # ----------------------------------------------------------------------------
 [[project.extra.social]]
 icon = "fontawesome/brands/github"
-link = "https://github.com/sessieresearchatsau/RuleFlow"
+link = "https://github.com/RuleFlow-OSS/RuleFlow"
 
 # ----------------------------------------------------------------------------
 # In this section you can configure the Markdown extensions that are used when

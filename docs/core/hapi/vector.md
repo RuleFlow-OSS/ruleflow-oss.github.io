@@ -1,3 +1,3 @@
 ---
-icon: lucide/vector-square
+icon: lucide/brackets
 ---

@@ -1,3 +1,3 @@
 ---
-icon: lucide/shapes
+icon: lucide/network
 ---

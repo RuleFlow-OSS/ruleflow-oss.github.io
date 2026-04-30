@@ -1,0 +1,359 @@
+{% extends "base.html" %}
+
+{% block container %}
+<style>
+    /* --- MASTER CONTAINER --- */
+    .scrolly-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem 10vh 2rem;
+    }
+
+    /* --- STICKY VISUAL STAGE --- */
+    .visual-stage {
+        position: sticky;
+        /* max() ensures it never clips off the top on very short screens */
+        top: max(15vh, 100px);
+        height: 70vh;
+        min-height: 400px;
+        width: 100%;
+        pointer-events: none;
+        /* Allows clicking text/links behind it */
+        z-index: 1;
+    }
+
+    /* The container that glides left and right */
+    .mockup-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        /* Smooth Apple-like glide when changing sides */
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Alignment Classes (Controlled by JS) */
+    .scrolly-wrapper.visual-right .mockup-container {
+        transform: translateX(100%);
+        /* Moves to the right half */
+    }
+
+    .scrolly-wrapper.visual-left .mockup-container {
+        transform: translateX(0%);
+        /* Moves to the left half */
+    }
+
+    /* --- FLEXIBLE MEDIA PLACEHOLDERS --- */
+    .mockup-placeholder {
+        position: absolute;
+        width: 90%;
+        aspect-ratio: 16 / 10;
+        border-radius: 12px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px) scale(0.95);
+        transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s;
+
+        /* Temporary styling until you add videos */
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: monospace;
+        color: #64748b;
+        font-size: 1.25rem;
+    }
+
+    /* Makes any video/image added later fit perfectly */
+    .mockup-placeholder video,
+    .mockup-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+    }
+
+    .mockup-placeholder.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+    }
+
+    /* --- TEXT STEPS (ALTERNATING) --- */
+    .content-steps {
+        position: relative;
+        z-index: 2;
+        pointer-events: auto;
+        /* Pulls the text up so it aligns with the sticky stage */
+        margin-top: -70vh;
+    }
+
+    .step {
+        min-height: 80vh;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 2rem;
+        opacity: 0.3;
+        transition: opacity 0.5s ease;
+    }
+
+    .step.is-active {
+        opacity: 1;
+    }
+
+    /* Layout Logic based on data-visual-pos */
+    .step[data-visual-pos="right"] {
+        margin-left: 0;
+    }
+
+    /* Text on Left */
+    .step[data-visual-pos="left"] {
+        margin-left: 50%;
+    }
+
+    /* Text on Right */
+
+    .step h2 {
+        font-size: 2.75rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        color: var(--md-typeset-color, #0f172a);
+        line-height: 1.2;
+    }
+
+    .step p {
+        font-size: 1.125rem;
+        line-height: 1.7;
+        margin: 0;
+        color: var(--md-typeset-color, #475569);
+    }
+
+    /* --- INSTALL BUTTON --- */
+    .install-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: #0f172a;
+        color: #ffffff !important;
+        padding: 0.875rem 1.5rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        text-decoration: none;
+        margin-top: 2rem;
+        transition: all 0.2s ease;
+        align-self: flex-start;
+        /* Keeps it from stretching */
+    }
+
+    .install-btn:hover {
+        background: #334155;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* --- MOBILE RESPONSIVENESS --- */
+    @media (max-width: 900px) {
+        .scrolly-wrapper {
+            padding: 0 1rem;
+        }
+
+        .visual-stage {
+            position: sticky;
+            top: 80px;
+            /* Sits just below the mobile header */
+            height: 35vh;
+            min-height: 250px;
+            margin-bottom: 2rem;
+        }
+
+        /* Force visual to be full width and stay centered on mobile */
+        .mockup-container {
+            width: 100%;
+            transform: translateX(0) !important;
+        }
+
+        .content-steps {
+            margin-top: 0;
+        }
+
+        .step {
+            width: 100%;
+            margin-left: 0 !important;
+            min-height: 50vh;
+            padding: 3rem 0;
+            opacity: 1;
+            /* Keep text readable on mobile */
+        }
+    }
+</style>
+
+<div class="scrolly-wrapper visual-right" id="scrolly-master">
+
+    <!-- VISUAL STAGE -->
+    <div class="visual-stage">
+        <div class="mockup-container">
+
+            <!-- Placeholder 1 -->
+            <div class="mockup-placeholder m1 active">
+                <!-- Replace this text with your video tag later:
+        <video autoplay muted loop playsinline>
+          <source src="assets/dsl-animation.mp4" type="video/mp4">
+        </video>
+        -->
+                <div>[ Flow DSL Syntax & Execution ]</div>
+            </div>
+
+            <!-- Placeholder 2 -->
+            <div class="mockup-placeholder m2">
+                <div>[ Interactive Terminal Studio UI ]</div>
+            </div>
+
+            <!-- Placeholder 3 -->
+            <div class="mockup-placeholder m3">
+                <div>[ Causal Graph Visualization ]</div>
+            </div>
+
+            <!-- Placeholder 4 -->
+            <div class="mockup-placeholder m4">
+                <div>[ Plugin Integration & Custom UI ]</div>
+            </div>
+
+            <!-- Placeholder 5 -->
+            <div class="mockup-placeholder m5">
+                <div>[ Python API & Extensibility ]</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TEXT STEPS -->
+    <div class="content-steps">
+
+        <!-- Step 1: Text on Left (Visual will be pushed Right) -->
+        <section class="step is-active" data-step="1" data-visual-pos="right">
+            <h2>Model Evolutions with Elegance</h2>
+            <p>RuleFlow provides a powerful Domain Specific Language (DSL) designed to effortlessly construct string-rewriting systems, 1D cellular automata, and complex multiway models. Define substitutions, shifts, and targeted overwrites with a syntax built for structural theorists.</p>
+
+            <a href="/get-started/install/" class="install-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="4 17 10 11 4 5"></polyline>
+                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                </svg>
+                pip install ruleflow
+            </a>
+        </section>
+
+        <!-- Step 2: Text on Right (Visual will be pushed Left) -->
+        <section class="step" data-step="2" data-visual-pos="left">
+            <h2>Interactive Terminal Studio</h2>
+            <p>Step through theoretical timelines using a distraction-free, highly optimized Textual UI. Hot-reload rule modifications in real-time, inspect deeply nested space states, track specific cell lifespans, and navigate causality with absolute precision directly from your terminal.</p>
+        </section>
+
+        <!-- Step 3: Text on Left (Visual will be pushed Right) -->
+        <section class="step" data-step="3" data-visual-pos="right">
+            <h2>Deep Causal Analysis</h2>
+            <p>Extract profound topological insights from your models. RuleFlow automatically extracts Event Causality Graphs, calculates flow hierarchies, and computes degree assortativity. Export sparse models to Gephi or visualize complex graph intersections natively in your browser via VisJS.</p>
+        </section>
+
+        <!-- Step 4: Text on Right (Visual will be pushed Left) -->
+        <section class="step" data-step="4" data-visual-pos="left">
+            <h2>Extend the Studio with Plugins</h2>
+            <p>RuleFlow's UI isn't just a viewer; it's a modular research environment. Write custom Python plugins to hook directly into the Model-View-Controller architecture. Add bespoke tabs, custom data tables, and specialized parameter controls to steer your unique exploration and analysis efforts without ever leaving the terminal.</p>
+        </section>
+
+        <!-- Step 5: Text on Left (Visual will be pushed Right) -->
+        <section class="step" data-step="5" data-visual-pos="right">
+            <h2>Infinite Extensibility via Core API</h2>
+            <p>Beyond the built-in DSL, RuleFlow's core engine is completely exposed through a robust Python API. Extend the foundational <code>Cell</code>, <code>SpaceState</code>, and <code>Rule</code> classes to build ANY evolving system you can imagine—from 2D Conway's Game of Life and hypergraph rewriting systems to multidimensional simulations. If you can define the transformation rules programmatically, RuleFlow can simulate and analyze it.</p>
+        </section>
+
+    </div>
+</div>
+
+<script>
+    (function initScrolly() {
+        const wrapper = document.getElementById('scrolly-master');
+        const steps = Array.from(document.querySelectorAll('.step'));
+        const mockups = document.querySelectorAll('.mockup-placeholder');
+
+        if (!steps.length || !mockups.length || !wrapper) return;
+
+        let activeIndex = -1;
+
+        function updateScrolly() {
+            const centerY = window.innerHeight / 2;
+            let closestIndex = 0;
+            let minDistance = Infinity;
+
+            // 1. Find the step that is currently closest to the middle of the screen
+            steps.forEach((step, index) => {
+                const rect = step.getBoundingClientRect();
+                const stepCenterY = rect.top + (rect.height / 2);
+                const distance = Math.abs(centerY - stepCenterY);
+
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestIndex = index;
+                }
+            });
+
+            // 2. Only trigger changes if the active section has actually changed
+            if (closestIndex !== activeIndex) {
+                activeIndex = closestIndex;
+                const targetStep = steps[activeIndex];
+
+                // Highlight active text
+                steps.forEach(s => s.classList.remove('is-active'));
+                targetStep.classList.add('is-active');
+
+                // Safely move the visual container left/right
+                const visualPos = targetStep.getAttribute('data-visual-pos');
+                wrapper.classList.remove('visual-left', 'visual-right');
+                wrapper.classList.add(`visual-${visualPos}`);
+
+                // Swap active media placeholders
+                const stepNum = targetStep.getAttribute('data-step');
+                mockups.forEach(m => m.classList.remove('active'));
+
+                const targetMockup = document.querySelector(`.m${stepNum}`);
+                if (targetMockup) {
+                    targetMockup.classList.add('active');
+
+                    // ANIMATION RESTART LOGIC
+                    const video = targetMockup.querySelector('video');
+                    if (video) {
+                        video.currentTime = 0;
+                        video.play().catch(e => console.log("Autoplay prevented", e));
+                    }
+                }
+            }
+        }
+
+        // Run once on load to ensure correct initial state
+        updateScrolly();
+
+        // Attach to scroll and resize events via requestAnimationFrame for max performance
+        window.addEventListener('scroll', () => {
+            window.requestAnimationFrame(updateScrolly);
+        }, { passive: true });
+
+        window.addEventListener('resize', () => {
+            window.requestAnimationFrame(updateScrolly);
+        }, { passive: true });
+
+    })();
+</script>
+{% endblock %}
