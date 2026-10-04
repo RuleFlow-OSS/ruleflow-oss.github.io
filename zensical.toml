@@ -59,13 +59,13 @@ nav = [
 	] },
 
 	{ "Studio" = [
+		"studio/overview.md",
 		"studio/core-plugins.md",
 		"studio/external-plugins.md",
 		"studio/developing-plugins.md",
 		{ "External Tooling" = [
 			"studio/external-tools/render-engine.md",
 			"studio/external-tools/gephi.md",
-			"studio/external-tools/wolfram-lang.md",
 		] },
 	] },
 

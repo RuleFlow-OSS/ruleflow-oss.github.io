@@ -3,6 +3,6 @@ icon: lucide/cast
 ---
 
 !!! info "Documentation Work in Progress"
-    There is currently no documentation available for this page yet.
+    There is minimal documentation available for this page.
 
-    RuleFlow is an actively growing project, and we welcome contributions from the community! If you are familiar with this topic and would like to help us improve our guides, please consider contributing. Check out our Contribution Guidelines to get involved.
+The Render Engine is a standalone Godot application (work in progress) designed to visually render discrete complex systems simulated by RuleFlow. It acts as a lightweight, external client that connects to the RuleFlow server via a custom TCP socket protocol to receive continuous live state updates. By decoupling the heavy mathematical computation from the graphics pipeline, it allows users to smoothly explore evolving 2D and 3D environments, as well as causal network graphs, in real time without bottlenecking the main simulation.

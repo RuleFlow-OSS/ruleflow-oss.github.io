@@ -7,7 +7,7 @@ All our software is licensed under [OSI-approved licenses](https://opensource.or
 
 The software can be modified as needed to fit any conceivable use case and those modifications can be shared with others but do not need to be distributed for free or in source form. We believe that Open Source is a great development model but accept that others might want to pursue other avenues. They might, for example, work under constraints not of their own making or might simply not feel that they are in a position to pursue this approach.
 
-Not every component of RuleFlow, especially those used in [Studio Plugins](/studio/store) is guaranteed to be licensed under the [MIT](https://opensource.org/license/mit) License. In such cases, proper licensing procedures must be fallowed in addition to those laid out here.
+Not every component of RuleFlow, especially those used in [Studio Plugins](../studio/external-plugins.md) is guaranteed to be licensed under the [MIT](https://opensource.org/license/mit) License. In such cases, proper licensing procedures must be fallowed in addition to those laid out here.
 
 The MIT license contains disclaimers of liability and warranty. These are essential clauses in Open Source licensing. We give away the software for free and it is used under a broad license rather than under a contract. We encourage its use in the broadest range of circumstances. This is why we cannot accept any kind of liability or warranty.
 

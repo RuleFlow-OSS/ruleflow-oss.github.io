@@ -4,7 +4,7 @@ icon: lucide/bot
 
 # AI Policy
 
-Artificial intelligence is rapidly evolving, and we believe in leveraging it for practical innovation. We welcome AI as a collaborative tool to enhance human capability, but we strictly reject the wave of low-effort corporate "AI slop" and automated hype. All contributions to RuleFlow must remain fundamentally human-centered. 
+Artificial intelligence is rapidly evolving, and we believe in leveraging it for practical innovation. We welcome AI as a collaborative tool to enhance human capability, but we strictly reject the wave of low-effort "AI slop" and corporate automation hype. All contributions to RuleFlow must remain fundamentally human-centered. 
 
 To maintain the integrity, legal standing, and mathematical rigor of the project, please adhere to the following guidelines when using AI assistants in your workflow:
 

@@ -49,4 +49,4 @@ Press the **Run** button in the top toolbar to execute the script. The engine wi
 
 Congratulations! You have successfully created and executed your first FlowLang system. You can now experiment with different rules, initial conditions, and evolution steps to explore the capabilities of RuleFlow.
 
-[:material-download: Download Complete Examples Folder](https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2FRuleFlow-OSS%2FRuleFlow%2Ftree%2Fmain%2Ftests-manual%2Fexample-studio-project){ .md-button .md-button--primary }
+[:material-download: Download Complete Examples Folder](https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2FRuleFlow-OSS%2FRuleFlow%2Ftree%2Fmaster%2Ftests-manual%2Fexample-studio-project){ .md-button .md-button--primary }
