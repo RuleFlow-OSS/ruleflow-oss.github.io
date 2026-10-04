@@ -2,7 +2,7 @@
 icon: lucide/network
 ---
 
-# Gephi External Tools
+# Gephi Network Analysis
 
 [:octicons-globe-24: Visit the Official Gephi Website (gephi.org)](https://gephi.org){ .md-button .md-button--primary }
 
