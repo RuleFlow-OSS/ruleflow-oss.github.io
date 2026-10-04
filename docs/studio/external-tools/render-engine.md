@@ -1,5 +1,5 @@
 ---
-icon: lucide/cuboid
+icon: lucide/cast
 ---
 
 !!! info "Documentation Work in Progress"

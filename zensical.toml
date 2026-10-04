@@ -28,25 +28,23 @@ site_author = "Sessie Research Group"
 # documentation you should set this.
 # Read more: https://zensical.org/docs/setup/basics/#site_url
 site_url = "https://www.ruleflow.org/"
-# repo_url = "https://github.com/RuleFlow-OSS/RuleFlow"
-# repo_name = "RuleFlow-OSS/RuleFlow"
+repo_url = "https://github.com/RuleFlow-OSS/RuleFlow"
+repo_name = "RuleFlow-OSS/RuleFlow"
 
 # The copyright notice appears in the page footer and can contain an HTML
 # fragment.
 #
 # Read more: https://zensical.org/docs/setup/basics/#copyright
 copyright = """
-Copyright &copy; 2026 Sessie Research Group @ SAU –
-<a href="#__consent">Change cookie settings</a>
+Copyright &copy; 2026 Sessie Research Group @ SAU
 """
 
 
 nav = [
 	{ "Home" = "index.md" },
 	{ "About" = [
-		"about/index.md",
-		"about/roadmap.md",
-		"about/vision.md",
+		"about/about.md",
+		{"Roadmap" = "about/roadmap.md"},
 		{"License" = "about/license.md"},
 	] },
 	{ "Get Started" = [
@@ -60,22 +58,14 @@ nav = [
 	] },
 
 	{ "Studio" = [
-		"studio/overview.md",
-		"studio/project-management.md",
-		"studio/workflow-tips.md",
-		"studio/example-project.md",
-		{ "Core Features" = [
-			{"Editor" = "studio/features/editor.md"},
-			{"Running Flows" = "studio/features/run.md"},
-			{"Exploring Flows" = "studio/features/explore.md"},
-			{"Analyzing Flows" = "studio/features/analysis.md"}
+		"studio/core-plugins.md",
+		"studio/external-plugins.md",
+		"studio/developing-plugins.md",
+		{ "External Tooling" = [
+			"studio/external-tools/render-engine.md",
+			"studio/external-tools/gephi.md",
+			"studio/external-tools/wolfram-lang.md",
 		] },
-		{ "Plugins" = [
-			"studio/plugins/using-plugins.md",
-			{"Official Plugins" = "studio/plugins/store.md"},
-			"studio/plugins/developing-plugins.md"
-		] },
-		"studio/external-tools.md",
 	] },
 
 	{ "FlowLang" = [
@@ -124,20 +114,9 @@ nav = [
 
 	{ "Community" = [
 		"community/get-involved.md",
-		"community/how-we-work.md",
+		{"Contribute" = "community/contribute.md"},
+		"community/code-of-conduct.md",
 		"community/ai-policy.md",
-		"community/faqs.md",
-		{ "Contribute" = [
-			"community/contribute/bug-reports.md",
-			"community/contribute/documentation.md",
-			"community/contribute/change-requests.md",
-			"community/contribute/pull-requests.md",
-			"community/contribute/code-of-conduct.md",
-		] },
-		{ "Guides" = [
-			"community/guides/development.md",
-			"community/guides/bug-tracking.md",
-		] },
 	] },
 ]
 
@@ -366,8 +345,9 @@ logo = "assets/logo.ico"
 # - https://zensical.org/docs/setup/logo-and-icons
 # - https://github.com/zensical/ui/tree/master/dist/.icons
 # ----------------------------------------------------------------------------
-#[project.theme.icon]
-#logo = "lucide/smile"
+# [project.theme.icon]
+# # logo = "lucide/smile"
+# repo = "fontawesome/brands/github"
 
 # ----------------------------------------------------------------------------
 # In the "font" subsection you can configure the fonts used. By default, fonts
@@ -457,18 +437,18 @@ custom_checkbox = true
 # - https://zensical.org/docs/setup/analytics/
 # - https://zensical.org/docs/setup/data-privacy/
 # ----------------------------------------------------------------------------
-[project.extra.consent]
-title = "Cookie consent"
-description = """
-    We use cookies to recognize your repeated visits and preferences, as well
-    as to measure the effectiveness of our documentation and whether users
-    find what they're searching for. With your consent, you're helping us to
-    make our documentation better.
-"""
-actions = [
-    "accept",
-	"reject"
-]
+# [project.extra.consent]
+# title = "Cookie consent"
+# description = """
+#     We use cookies to recognize your repeated visits and preferences, as well
+#     as to measure the effectiveness of our documentation and whether users
+#     find what they're searching for. With your consent, you're helping us to
+#     make our documentation better.
+# """
+# actions = [
+#     "accept",
+# 	"reject"
+# ]
 
 # [project.extra.analytics]
 # provider = "google"

@@ -1,9 +1,14 @@
 [project]
-name = "ruleflow-oss-github-io"
+name = "ruleflow-website"
 version = "0.1.0"
-description = "Add your description here"
+description = "The main website and documentation for the RuleFlow Software."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "zensical>=0.0.37",
+    "zensical",
+]
+
+[dependency-groups]
+dev = [
+    "zensical>=0.0.67",
 ]

@@ -4,89 +4,22 @@ icon: lucide/bot
 
 # AI Policy
 
-!!! note "Note on Plugins"
+Artificial intelligence is rapidly evolving, and we believe in leveraging it for practical innovation. We welcome AI as a collaborative tool to enhance human capability, but we strictly reject the wave of low-effort corporate "AI slop" and automated hype. All contributions to RuleFlow must remain fundamentally human-centered. 
 
-    The policy laid out here does not apply to [Studio Plugin](/studio/plugins/store/) contributions.
-    This is primarily due to the fact that Plugins are meant to facilitate rapid development and research-style code.
-    We do, however, encourage Plugin developers to consider following some of the guidelines discussed here.
+To maintain the integrity, legal standing, and mathematical rigor of the project, please adhere to the following guidelines when using AI assistants in your workflow:
 
-This document defines RuleFlow's policy regarding AI-generated content. This policy applies to all aspects of the RuleFlow project, including all the GitHub repositories under the organization.
+* **Rigorous Human Review:** All AI-assisted work must be fully tested and thoroughly reviewed by a human before a pull request is opened. Low-effort, unverified AI code dumps will be outright rejected.
+* **No Autonomous Agents:** Code built and submitted by "no-human-in-the-loop" agents is strictly banned. You must understand, orchestrate, and take full responsibility for every line of code you submit.
+* **Mathematical and Logic Verification:** RuleFlow deals heavily with rigorous causal networks, multi-way branching, and vector memory boundaries. AI assistants frequently hallucinate complex logic. Code running without syntax errors is not enough; the underlying math, algorithmic efficiency, and memory topology must be explicitly human-verified.
+* **Intellectual Property and Licensing:** AI tools can inadvertently regurgitate copyleft (e.g., GPL) or proprietary code snippets. You bear full responsibility for ensuring all AI-generated code you submit is legally your own and fully compatible with RuleFlow's MIT license.
+* **No AI Fluff in PRs or Commits:** We value clear, concise project communication. Do not use AI to generate 500-word, overly enthusiastic pull request descriptions or commit messages for simple changes. Write your summaries directly and plainly.
+* **Documentation Assistance:** You are welcome to use AI to help draft, format, or refine documentation, tutorials, and guides, provided the final output is meticulously reviewed for accuracy, clarity, and a natural tone. 
+* **Disclosure Requirements:** If you use AI to generate significant portions of code or written content, you must briefly disclose this in your pull request description. Minor daily assists, such as basic refactoring or simple autocompletes (e.g., inline GitHub Copilot suggestions), do not require disclosure.
 
-For the purposes of this document, _content_ is defined as any contribution to the RuleFlow organization, both code and non-code, including but not limited to:
 
-- Code submitted for inclusion in RuleFlow software, or other organization-owned repositories
-- Documentation of any kind
-- Communication content (e.g. issues, discussions, pull request descriptions, and reviews)
+### Recommended Resources for Responsible AI Use
 
-We want to explicitly lay out our AI policy here so that all users have a clear understanding that the software they use is fully human-created, even if assisted by certain AI technologies. We believe that this is crucial to facilitate a robust and healthy codebase; one in which bugs can be tracked and understood.
-
-We recognize that the use of AI in open source software raises many difficult questions and acknowledge that views, approaches, and technical capabilities are rapidly changing. 
-We invite comments and further discussion (via our [discussion channels](https://github.com/orgs/RuleFlow-OSS/discussions)) and expect to periodically review this policy.
-
-## Policy overview
-
-RuleFlow does not accept any substantial uses of AI-generated content in contributions.
-
-AI tools may be used in limited cases, for example when it is used for small amounts of AI-assisted code (e.g. autocompletion using copilot, cursor, etc...)
-or for language translation purposes. **Such uses must always be declared.**
-
-Please understand the reviewing capacity is very limited for the project, so large PRs which appear to not have the requisite understanding might not get reviewed, and eventually closed or redirected.
-Understanding from authors about what code they are contributing and how it fits into the larger picture is crucial.
-If reviewers feel there is a lack of understanding from looking at the code, PR descriptions or just general interactions with a contributor, we reserve the right to close the PR to save time and resources.
-Given the limited reviewing capacity, time and effort of reviewing and educating contributors will be more targeted to PRs of initial high quality and/or contributors where interactions are constructive and of good quality.
-
-## Policy details
-
-#### 0. AI usage must always be declared
-
-All contributions must be fully transparent about any AI usage. Failure to disclose AI use (e.g. in pull request description details)
-may be queried by other developers and may be considered non-compliance with this policy.
-
-If we suspect that AI tools were used as part of a contribution, RuleFlow developers may ask you for clarification.
-Please do not take offense if this happens to you, distinguishing between AI-generated and human-authored content is increasingly difficult!
-
-#### 1. Fully generated code is not allowed
-
-Fully AI-generated contributions, such as content generated by prompting a large language model (e.g. claude code or chatgpt) or produced by any agentic AI system are not permitted in the RuleFlow codebase.
-
-Some limited exceptions are described in sections #2 and #3 for integrated development environments (IDEs) and language translation.
-
-#### 2. Limited AI assistance exemption: IDEs and autocompletion
-
-AI tools are now so deeply integrated into many modern development environments, and it may be impractical to avoid them entirely.
-We recognize that this is particularly true for modern integrated development environments (IDEs), which may use AI to power features like autocompletion.
-
-In these limited cases of code generation, typically ranging from a single variable to a couple of lines of code,
-AI assistance is deemed acceptable. However, if code generation exceeds minimal, sporadic amounts (e.g. repeated or large multi-line blocks),
-it would be considered fully AI-generated and, as defined in section #1, is not acceptable.
-
-As per section #0, it is your responsibility to report the extent of AI assistance you used.
-
-#### 3. Limited AI assistance exemption: language translation
-
-RuleFlow aims to foster an inclusive environment for all contributors and users. We recognize that language barrier can limit participation
-in open-source projects, particularly for non-native English speakers.
-
-Whilst we prefer you communicate with us in your own words (and languages if needed), we acknowledge that AI-based translation tools may sometimes
-be necessary for communicating in issues / discussions. If such tools are used, we ask you to disclose their use and purpose.
-
-#### 4. Contributors are responsible authors and must be aware of, and declare, any derivate work
-
-Contributors are responsible for the content and provenance of every aspect of their contribution, including any design decisions.
-Contributors must be aware of whether their work derives from external sources / codebases and must declare any derivative work.
-
-#### 5. Human reviewers are required
-
-All code merged into RuleFlow repositories must be reviewed by a human reviewer. Instructions / suggestions from human reviewers always take precedence over those of non-human reviewers.
-
-#### 6. Consequences for failure to comply to this policy
-
-Any failures to comply with this policy should be reported to the RuleFlow core developers through
-our [standard communications channels](https://github.com/orgs/RuleFlow-OSS/discussions).
-The core developers may enforce this policy through a range of actions, which may include restricting or banning individuals from future contributions.
-
-There is a zero tolerance policy for intentionally failing to disclose or misrepresenting the extent of AI usage.
-
-## Acknowledgements
-
-We acknowledge the [MDAnalysis AI policy](https://github.com/MDAnalysis/mdanalysis/blob/develop/AI_POLICY.md) for providing insight in shaping this policy.
+* **[OpenInfra Foundation - Policy for AI-Generated Content](https://openinfra.org/legal/ai-policy/)**: Guidelines emphasizing human-in-the-loop development, "Generated-By" attribution, and the strict responsibility of contributors to verify security and license compatibility.
+* **[Apache Software Foundation - Generative Tooling Guidance](https://www.apache.org/legal/generative-tooling.html)**: Practical rules for open-source contributors on evaluating the copyright, licensing, and security risks associated with AI-generated code.
+* **[ACM Policy on Authorship](https://www.acm.org/publications/policies/frequently-asked-questions)**: The Association for Computing Machinery’s standards for acknowledging generative AI in academic research, enforcing that AI systems cannot be listed as authors and that humans bear full responsibility for mathematical and factual veracity.
+* **[GitHub Copilot Trust Center](https://resources.github.com/copilot-trust-center/)**: Resources on secure, compliant, and transparent AI-assisted software development, including details on code-matching filters and intellectual property safeguards.

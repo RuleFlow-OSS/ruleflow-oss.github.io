@@ -1,5 +1,5 @@
 ---
-icon: lucide/cuboid
+icon: lucide/shopping-bag
 ---
 
 !!! info "Documentation Work in Progress"

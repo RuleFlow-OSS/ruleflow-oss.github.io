@@ -6,8 +6,7 @@
     .scrolly-wrapper {
         position: relative;
         width: 100%;
-        max-width: 1400px;
-        /* Widened to allow much larger GIF displays */
+        max-width: 1360px;
         margin: 0 auto;
         padding: 0 2rem 10vh 2rem;
         box-sizing: border-box;
@@ -23,15 +22,12 @@
         bottom: 0;
         pointer-events: none;
         z-index: 0;
-        /* Keeps it behind the content */
 
-        /* Neutral semi-transparent grid lines (works on light & dark) */
         background-size: 50px 50px;
         background-image:
             linear-gradient(to right, rgba(128, 128, 128, 0.08) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(128, 128, 128, 0.08) 1px, transparent 1px);
 
-        /* Smoothly fades the grid out at the top and bottom boundaries */
         -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
         mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
     }
@@ -47,13 +43,11 @@
         pointer-events: none;
         z-index: 0;
 
-        /* Blue grid lines (matching your #0ea5e9 link color) */
         background-size: 50px 50px;
         background-image:
             linear-gradient(to right, rgba(14, 165, 233, 0.4) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(14, 165, 233, 0.4) 1px, transparent 1px);
 
-        /* A radial mask that centers on our CSS variables, fading out at 250px */
         -webkit-mask-image: radial-gradient(circle 250px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black, transparent);
         mask-image: radial-gradient(circle 250px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black, transparent);
     }
@@ -61,22 +55,20 @@
     /* --- STICKY VISUAL STAGE --- */
     .visual-stage {
         position: sticky;
-        /* Push slightly down from header */
-        top: max(10vh, 90px);
-        height: 80vh;
-        /* Taller stage for maximum visibility */
+        top: max(8vh, 70px);
+        height: 76vh;
         min-height: 500px;
         width: 100%;
         pointer-events: none;
         z-index: 1;
     }
 
-    /* The container that glides left and right */
+    /* Container holding the media */
     .mockup-container {
         position: absolute;
         top: 0;
         left: 0;
-        width: 70%;
+        width: 62%;
         height: 100%;
         transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         display: flex;
@@ -84,43 +76,44 @@
         justify-content: center;
     }
 
-    /* Image on Right (Spills off the right side) */
+    /* Media shifted to the right */
     .scrolly-wrapper.visual-right .mockup-container {
-        /* Important Math: We need it to start exactly at 40% to clear the text. 40 / width-of-mockup = 0.5333 */
-        transform: translateX(57.1%);
+        transform: translateX(61.29%);
     }
 
-    /* Image on Left (Spills off the left side) */
+    /* Media on the left */
     .scrolly-wrapper.visual-left .mockup-container {
-        /* Important Math: We need it to end exactly at 60% to clear the text. -15 / width-of-mockup = -0.2 */
-        transform: translateX(-21%);
+        transform: translateX(0);
     }
 
-    /* --- FLEXIBLE MEDIA PLACEHOLDERS --- */
+    /* --- MEDIA PLACEHOLDERS --- */
     .mockup-placeholder {
         position: absolute;
         width: 100%;
         height: 100%;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(20px) scale(0.95);
-        transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s;
+        transform: translateY(16px) scale(0.97);
+        transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 0.5rem;
+        box-sizing: border-box;
     }
 
-    /* Make sure videos and images never crop their UI/Text */
     .mockup-placeholder video,
     .mockup-placeholder img {
         max-width: 100%;
         max-height: 100%;
+        width: auto;
+        height: auto;
         object-fit: contain;
-        /* CRUCIAL: Ensures full uncropped GIF is visible */
+        display: block;
         border-radius: 12px;
-        /* Apple-style deep layered floating shadow */
-        box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.08);
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.28), 0 0 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        outline: none;
     }
 
     .mockup-placeholder.active {
@@ -134,56 +127,48 @@
         position: relative;
         z-index: 2;
         pointer-events: auto;
-        /* Pulls the text up so it aligns with the sticky stage */
-        margin-top: -80vh;
+        margin-top: -76vh;
     }
 
     .step {
-        min-height: 100vh;
-        /* Lengthened to give the user more scroll time per image */
-        width: 40%;
-        /* Reduced from 50% to make room for 60% images */
+        min-height: 85vh;
+        width: 33%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 1.5rem 3rem;
-        /* Tighter vertical padding */
+        padding: 1.5rem 1rem;
         box-sizing: border-box;
-        opacity: 0.2;
-        transition: opacity 0.5s ease;
+        opacity: 0.25;
+        transition: opacity 0.4s ease;
     }
 
     .step.is-active {
         opacity: 1;
     }
 
-    /* Text on Left (Image on Right) */
+    /* Text on Left (Visual on Right) */
     .step[data-visual-pos="right"] {
         margin-left: 0;
     }
 
-    /* Text on Right (Image on Left) */
+    /* Text on Right (Visual on Left) */
     .step[data-visual-pos="left"] {
-        margin-left: 60%;
+        margin-left: 67%;
     }
 
     .step h2 {
-        font-size: 2rem;
-        /* Reduced to save space */
+        font-size: 1.55rem;
         font-weight: 700;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.015em;
         margin-top: 0;
-        margin-bottom: 0.75rem;
-        /* Tighter gap */
+        margin-bottom: 0.65rem;
         color: var(--md-typeset-color, #0f172a);
-        line-height: 1.2;
+        line-height: 1.25;
     }
 
     .step p {
-        font-size: 1rem;
-        /* Smaller text to ensure it fits next to the UI */
-        line-height: 1.5;
-        /* Tighter line height */
+        font-size: 0.95rem;
+        line-height: 1.6;
         margin: 0;
         color: var(--md-typeset-color, #475569);
     }
@@ -193,19 +178,19 @@
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: 1.5rem;
-        margin-top: 1.5rem;
+        gap: 1.25rem;
+        margin-top: 1.25rem;
     }
 
     .install-btn {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
         background: #0f172a;
         color: #ffffff !important;
-        padding: 0.75rem 1.25rem;
+        padding: 0.65rem 1.1rem;
         border-radius: 8px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 600;
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         text-decoration: none;
@@ -222,10 +207,9 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         font-weight: 500;
         color: #0ea5e9;
-        /* Sleek Apple-like blue link */
         text-decoration: none;
         transition: color 0.2s ease;
     }
@@ -240,16 +224,32 @@
 
     .learn-more-link:hover svg {
         transform: translateX(4px);
-        /* Arrow slides right on hover */
     }
 
-    /* Used for steps that don't have an install button to space the link properly */
-    .step>.learn-more-link {
-        margin-top: 1.25rem;
+    .step > .learn-more-link {
+        margin-top: 1.15rem;
         align-self: flex-start;
     }
 
-    /* --- MOBILE RESPONSIVENESS (FROSTED CARD SCROLL) --- */
+    /* --- HUMAN CODE NOTE --- */
+    .human-code-note {
+        margin-top: 1.1rem !important;
+        font-size: 0.8rem !important;
+        line-height: 1.45 !important;
+        color: #64748b !important;
+    }
+
+    .human-code-note a {
+        color: #0ea5e9;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
+    .human-code-note a:hover {
+        color: #0284c7;
+    }
+
+    /* --- MOBILE / TABLET RESPONSIVENESS --- */
     @media (max-width: 1024px) {
         .scrolly-wrapper {
             padding: 0;
@@ -257,9 +257,9 @@
 
         .visual-stage {
             position: sticky;
-            top: 10vh;
-            height: 45vh;
-            min-height: 300px;
+            top: 60px;
+            height: 44vh;
+            min-height: 280px;
             margin-bottom: 0;
             padding: 0 1rem;
             box-sizing: border-box;
@@ -270,56 +270,112 @@
             transform: translateX(0) !important;
         }
 
+        .mockup-placeholder video,
+        .mockup-placeholder img {
+            max-width: 95%;
+            max-height: 100%;
+        }
+
         .content-steps {
-            margin-top: -20vh;
-            padding: 0 1rem;
+            margin-top: -10vh;
+            padding: 0 1.25rem;
         }
 
         .step {
             width: 100%;
             margin-left: 0 !important;
             min-height: auto;
-            padding: 2rem 1.5rem;
-            /* Tighter padding for mobile cards */
-            margin-bottom: 60vh;
+            padding: 1.6rem 1.5rem;
+            margin-bottom: 50vh;
 
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            border: 1px solid rgba(226, 232, 240, 0.95);
+            border-radius: 18px;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
 
-            opacity: 0.3;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        /* Adjust dark mode card backgrounds if needed for mobile */
-        @media (prefers-color-scheme: dark) {
-            .step {
-                background: rgba(30, 41, 59, 0.85);
-                border-color: rgba(255, 255, 255, 0.1);
-            }
+            opacity: 0.5;
+            transform: translateY(12px) scale(0.98);
+            transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .step.is-active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+            border-color: rgba(14, 165, 233, 0.35);
+            box-shadow: 0 20px 35px -8px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(14, 165, 233, 0.18);
         }
 
         .step:last-child {
-            margin-bottom: 20vh;
+            margin-bottom: 15vh;
         }
 
         .step h2 {
-            font-size: 1.5rem;
-            /* Smaller mobile header */
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
         }
 
         .step p {
-            font-size: 0.95rem;
-            /* Smaller mobile paragraph */
+            font-size: 0.925rem;
+            line-height: 1.6;
+            color: #334155;
+        }
+
+        /* --- DARK MODE CARD OVERRIDES --- */
+        @media (prefers-color-scheme: dark) {
+            .step {
+                background: #1e293b;
+                border-color: rgba(255, 255, 255, 0.08);
+                box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.5);
+            }
+
+            .step.is-active {
+                border-color: rgba(56, 189, 248, 0.4);
+                box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(56, 189, 248, 0.2);
+            }
+
+            .step h2 {
+                color: #f8fafc;
+            }
+
+            .step p {
+                color: #cbd5e1;
+            }
+
+            .human-code-note {
+                color: #94a3b8 !important;
+            }
+        }
+
+        [data-md-color-scheme="slate"] .step,
+        [data-md-color-scheme="dark"] .step {
+            background: #1e293b;
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-md-color-scheme="slate"] .step.is-active,
+        [data-md-color-scheme="dark"] .step.is-active {
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(56, 189, 248, 0.2);
+        }
+
+        [data-md-color-scheme="slate"] .step h2,
+        [data-md-color-scheme="dark"] .step h2 {
+            color: #f8fafc;
+        }
+
+        [data-md-color-scheme="slate"] .step p,
+        [data-md-color-scheme="dark"] .step p {
+            color: #cbd5e1;
+        }
+
+        [data-md-color-scheme="slate"] .human-code-note,
+        [data-md-color-scheme="dark"] .human-code-note {
+            color: #94a3b8 !important;
         }
     }
 </style>
@@ -330,29 +386,37 @@
     <div class="visual-stage">
         <div class="mockup-container">
 
-            <!-- Placeholder 1 -->
+            <!-- Video 1 -->
             <div class="mockup-placeholder m1 active">
-                <img src="assets/first-example.gif" alt="demo">
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="assets/first-example.webm" type="video/webm">
+                </video>
             </div>
 
-            <!-- Placeholder 2 -->
+            <!-- Video 2 -->
             <div class="mockup-placeholder m2">
-                <img src="assets/interactive.gif" alt="demo">
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="assets/interactive.webm" type="video/webm">
+                </video>
             </div>
 
-            <!-- Placeholder 3 -->
+            <!-- Video 3 -->
             <div class="mockup-placeholder m3">
-                <img src="assets/graph.gif" alt="demo">
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="assets/graph.webm" type="video/webm">
+                </video>
             </div>
 
-            <!-- Placeholder 4 -->
+            <!-- Video 4 -->
             <div class="mockup-placeholder m4">
-                <img src="assets/plugin.gif" alt="demo">
+                <video autoplay loop muted playsinline preload="auto">
+                    <source src="assets/scaffold.webm" type="video/webm">
+                </video>
             </div>
 
-            <!-- Placeholder 5 -->
+            <!-- Image 5 (Static Architecture Diagram) -->
             <div class="mockup-placeholder m5">
-                <img src="assets/core-api.png" alt="demo">
+                <img src="assets/core-api.png" alt="Python core API architecture">
             </div>
 
         </div>
@@ -363,41 +427,39 @@
 
         <!-- Step 1 -->
         <section class="step is-active" data-step="1" data-visual-pos="right">
-            <h2>Model Evolutions with Elegance</h2>
-            <p>RuleFlow provides a powerful Domain Specific Language (DSL) designed to effortlessly construct
-                string-rewriting systems, 1D cellular automata, and complex multiway models. Define substitutions,
-                shifts, and targeted overwrites with a syntax built for structural theorists.</p>
+            <h2>RuleFlow</h2>
+            <p>Build cellular automata, string-rewriting systems, and multiway models with an expressive DSL. Define pattern substitutions, shifts, and state updates in just a few lines.</p>
 
             <div class="action-group">
-                <a href="/get-started/install/" class="install-btn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                <a href="/get-started/install" class="install-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="4 17 10 11 4 5"></polyline>
                         <line x1="12" y1="19" x2="20" y2="19"></line>
                     </svg>
-                    pip install ruleflow
+                    install ruleflow
                 </a>
-                <a href="/about/" class="learn-more-link">
+                <a href="/about/about" class="learn-more-link">
                     Learn more
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>
                 </a>
             </div>
+
+            <p class="human-code-note">The RuleFlow source code was developed by humans, for humans. We reject AI code slop. Learn more about our AI policy <a href="/community/ai-policy/">here</a>.</p>
         </section>
 
         <!-- Step 2 -->
         <section class="step" data-step="2" data-visual-pos="left">
-            <h2>Interactive Terminal Studio</h2>
-            <p>Step through theoretical timelines using a distraction-free, highly optimized Textual UI. Hot-reload rule
-                modifications in real-time, inspect deeply nested space states, track specific cell lifespans, and
-                navigate causality with absolute precision directly from your terminal.</p>
+            <h2>Interactive Studio</h2>
+            <p>Step through execution frame-by-frame in a live terminal UI. Edit rules with instant reload, inspect space states, and trace cell lifespans without leaving your shell.</p>
 
-            <a href="/studio/overview/" class="learn-more-link">
+            <a href="/studio/overview" class="learn-more-link">
                 Explore the Terminal UI
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
@@ -407,14 +469,12 @@
 
         <!-- Step 3 -->
         <section class="step" data-step="3" data-visual-pos="right">
-            <h2>Deep Causal Analysis</h2>
-            <p>Extract profound topological insights from your models. RuleFlow automatically extracts Event Causality
-                Graphs, calculates flow hierarchies, and computes degree assortativity. Export sparse models to Gephi or
-                visualize complex graph intersections natively in your browser via VisJS.</p>
+            <h2>Causal Analysis</h2>
+            <p>See exactly how events connect over time. RuleFlow maps causal graphs, measures flow hierarchies, and exports interactive views to Gephi or your browser.</p>
 
             <a href="/studio/features/analysis/" class="learn-more-link">
                 Learn about Causal Graphs
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
@@ -424,15 +484,12 @@
 
         <!-- Step 4 -->
         <section class="step" data-step="4" data-visual-pos="left">
-            <h2>Extend the Studio with Plugins</h2>
-            <p>RuleFlow's UI isn't just a viewer; it's a modular research environment. Write custom Python plugins to
-                hook directly into the Model-View-Controller architecture. Add bespoke tabs, custom data tables, and
-                specialized parameter controls to steer your unique exploration and analysis efforts without ever
-                leaving the terminal.</p>
+            <h2>Ruleset Scaffolding</h2>
+            <p>Build complex rulesets using FlowLang imbedded within our bootstrapped Python or WL environments.</p>
 
-            <a href="/studio/plugins/store/" class="learn-more-link">
-                View the Plugin API
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            <a href="/lang/overview" class="learn-more-link">
+                View the FlowLang Docs
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
@@ -442,16 +499,12 @@
 
         <!-- Step 5 -->
         <section class="step" data-step="5" data-visual-pos="right">
-            <h2>Infinite Extensibility via Core API</h2>
-            <p>Beyond the built-in DSL, RuleFlow's core engine is completely exposed through a robust Python API. Extend
-                the foundational <code>Cell</code>, <code>SpaceState</code>, and <code>Rule</code> classes to build ANY
-                evolving system you can imagine—from 2D Conway's Game of Life and hypergraph rewriting systems to
-                multidimensional simulations. If you can define the transformation rules programmatically, RuleFlow can
-                simulate and analyze it.</p>
+            <h2>Extensible</h2>
+            <p>Need more than the DSL? Subclass <code>Cell</code>, <code>SpaceState</code>, and <code>Rule</code> in Python to simulate 2D grids, hypergraphs, or custom dimensions. Once you're done, you can easily create a plugin so that your code is interactive with RuleFlow Studio.</p>
 
-            <a href="/core/overview/" class="learn-more-link">
+            <a href="/core/overview" class="learn-more-link">
                 Browse the Core Engine Docs
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
@@ -472,16 +525,13 @@
 
         let activeIndex = -1;
 
-        // --- NEW: Global state for the mouse ---
         let clientX = -1000;
         let clientY = -1000;
         let isHovering = false;
 
-        // Helper function to update the glow based on the last known mouse position
         function updateGlow() {
             if (!isHovering) return;
             const rect = wrapper.getBoundingClientRect();
-            // Calculate mouse position relative to the wrapper's current scrolled position
             const x = clientX - rect.left;
             const y = clientY - rect.top;
             
@@ -494,7 +544,6 @@
             let closestIndex = 0;
             let minDistance = Infinity;
 
-            // 1. Find the step that is currently closest to the middle of the screen
             steps.forEach((step, index) => {
                 const rect = step.getBoundingClientRect();
                 const stepCenterY = rect.top + (rect.height / 2);
@@ -506,29 +555,31 @@
                 }
             });
 
-            // 2. Only trigger changes if the active section has actually changed
             if (closestIndex !== activeIndex) {
                 activeIndex = closestIndex;
                 const targetStep = steps[activeIndex];
 
-                // Highlight active text
+                // Highlight active step
                 steps.forEach(s => s.classList.remove('is-active'));
                 targetStep.classList.add('is-active');
 
-                // Safely move the visual container left/right
+                // Shift mockup left or right
                 const visualPos = targetStep.getAttribute('data-visual-pos');
                 wrapper.classList.remove('visual-left', 'visual-right');
                 wrapper.classList.add(`visual-${visualPos}`);
 
-                // Swap active media placeholders
+                // Swap active media and manage video playback
                 const stepNum = targetStep.getAttribute('data-step');
-                mockups.forEach(m => m.classList.remove('active'));
+                mockups.forEach(m => {
+                    m.classList.remove('active');
+                    const v = m.querySelector('video');
+                    if (v) v.pause();
+                });
 
                 const targetMockup = document.querySelector(`.m${stepNum}`);
                 if (targetMockup) {
                     targetMockup.classList.add('active');
 
-                    // ANIMATION RESTART LOGIC
                     const video = targetMockup.querySelector('video');
                     if (video) {
                         video.currentTime = 0;
@@ -538,13 +589,10 @@
             }
         }
 
-        // Run once on load to ensure correct initial state
         updateScrolly();
 
-        // --- MOUSE GLOW TRACKING ---
         wrapper.addEventListener('mousemove', (e) => {
             isHovering = true;
-            // Store the position relative to the viewport
             clientX = e.clientX;
             clientY = e.clientY;
             updateGlow();
@@ -556,11 +604,10 @@
             wrapper.style.setProperty('--mouse-y', `-1000px`);
         });
 
-        // --- SCROLL & RESIZE EVENTS ---
         window.addEventListener('scroll', () => {
             window.requestAnimationFrame(() => {
                 updateScrolly();
-                updateGlow(); // Recalculate glow offset while scrolling
+                updateGlow();
             });
         }, { passive: true });
 

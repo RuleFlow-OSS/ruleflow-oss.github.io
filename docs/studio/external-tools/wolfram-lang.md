@@ -1,6 +1,8 @@
 ---
-icon: lucide/cuboid
+icon: lucide/code-xml
 ---
+
+# Wolfram Language
 
 !!! info "Documentation Work in Progress"
     There is currently no documentation available for this page yet.
