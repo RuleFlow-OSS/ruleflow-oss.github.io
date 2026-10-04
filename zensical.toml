@@ -30,7 +30,7 @@ site_author = "Sessie Research Group"
 site_url = "https://www.ruleflow.org/"
 repo_url = "https://github.com/RuleFlow-OSS/RuleFlow"
 repo_name = "RuleFlow-OSS/RuleFlow"
-edit_uri = "https://github.com/RuleFlow-OSS/ruleflow-oss.github.io"
+edit_uri = "https://github.com/RuleFlow-OSS/ruleflow-oss.github.io/edit/master/docs/"
 
 # The copyright notice appears in the page footer and can contain an HTML
 # fragment.
