@@ -9,7 +9,7 @@ RuleFlow operates natively on the [**Python**](https://www.python.org/) programm
 The project separates execution from interface:
 
 * **The Core Library & Engine:** The foundational Python [library](../core/overview.md) that handles memory topologies, pattern matching, state evolution, and the [FlowLang](../lang/overview.md) DSL.
-* **RuleFlow [Studio](../studio/core-plugins.md) (TUI):** A standalone terminal user interface (TUI) built on Textual. Conceptually separate from the core library, Studio is built *on top* of the core engine to provide an interactive, terminal-based research environment with data inspection, visual playback, and an extensible plugin system. Additionall functionality (Graph Rendering, Analysis Tools, etc.) is provided through optional plugin packages following the Hub-and-Spoke design philosophy.
+* **RuleFlow [Studio](../studio/overview.md) (TUI):** A standalone terminal user interface (TUI) built on Textual. Conceptually separate from the core library, Studio is built *on top* of the core engine to provide an interactive, terminal-based research environment with data inspection, visual playback, and an extensible plugin system. Additionall functionality (Graph Rendering, Analysis Tools, etc.) is provided through optional plugin packages following the Hub-and-Spoke design philosophy.
 
 ---
 
