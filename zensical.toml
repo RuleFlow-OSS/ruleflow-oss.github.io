@@ -71,7 +71,7 @@ nav = [
 
 	{ "FlowLang" = [
 		"lang/overview.md",
-		"lang/cheat-sheet.md",
+		"lang/reference-sheet.md",
 		"lang/formal-grammar.md",
 		{ "Language Constructs" = [
 			"lang/lang/rules.md",
