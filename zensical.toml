@@ -64,8 +64,8 @@ nav = [
 		"studio/external-plugins.md",
 		"studio/developing-plugins.md",
 		{ "External Tooling" = [
-			"studio/external-tools/render-engine.md",
-			"studio/external-tools/gephi.md",
+            {"RenderEngine" = "studio/external-tools/render-engine.md"},
+			{"Gephi" = "studio/external-tools/gephi.md"},
 		] },
 	] },
 
